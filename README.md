@@ -3,7 +3,6 @@
 ![](/Images/TheBigPicture.png)
 
 -   A Processing + Arduino combination that records lung tidal spirometer readings on a Collins Vitalometer. The spirometer dome height is measured with an ultra-sonic distance sensor. Sensor readings are adjusted for air temperature and air humidity.
-    alSonic.app](LungTidalSonic.app)
 
 ![](/Images/TheScreen.png)    
 
