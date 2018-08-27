@@ -6,7 +6,7 @@
 
 ![](/Images/TheScreen.png)    
 
-### Documentation:  **[LungTidalManualPDF.pdf](ManualsLungTidal/LungTidalManualPDF.pdf)**
+## Documentation:  **[LungTidalManualPDF.pdf](ManualsLungTidal/LungTidalManualPDF.pdf)**
 
 ![](/Images/BoxDevice01.png)
 
