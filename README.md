@@ -8,7 +8,7 @@
 
 ## Documentation:  **[LungTidalManualPDF.pdf](ManualsLungTidal/LungTidalManualPDF.pdf)**
 
-![](/Images/BoxDevice01.png)
+![](/Images/BoxDevice01.png){:height="50%" width="50%"}
 
 ![](/Images/BoxInside.png)  
 
