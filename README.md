@@ -8,11 +8,11 @@
 
 ## Documentation:  **[LungTidalManualPDF.pdf](ManualsLungTidal/LungTidalManualPDF.pdf)**
 
-![](/Images/BoxDevice01.png){:height="50%" width="50%"}
+<img src="/Images/BoxDevice01.png" height="80%" width="80%">
 
-![](/Images/BoxInside.png)  
+<img src="/Images/BoxInside.png" height="80%" width="80%">
 
-![](/Images/Pulley.png)
+<img src="/Images/Pulley.png" height="80%" width="80%">
 
 #### Download MacOS Application: **[LungTidalSonic.app](MacOSApplication/LungTidalSonic.app)**
 
