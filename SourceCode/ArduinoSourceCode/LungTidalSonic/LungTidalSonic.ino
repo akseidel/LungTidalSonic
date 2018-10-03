@@ -23,27 +23,25 @@
 #define DHTPIN 7                  // DHT-11 Output pin number
 #define DHTTYPE DHT11             // DHT Type is DHT 11
 #define TRIGGER_PIN  12           // DHT trigger pin number
-#define ECHO_PIN     11           // DHT echo pin number
+#define ECHO_PIN     3           // DHT echo pin number
 
 #define RDLEDPIN 13               // LED connected to digital pin 13, distance reading
-#define DHTRDLEDPIN 8               // LED connected to digital pin 8, dht read
+#define DHTRDLEDPIN 8             // LED connected to digital pin 8, dht read
 
 // distance units will be mm in this sketch so that the integer
 // value can be sent with enough resolution
 #define MAX_DISTANCE 440          // Sent to sensor library, reports 0 beyond this
-#define MAX_DISTANCE_PRAC 400     // Practical distance in distance units
-#define MIN_DISTANCE 2            // Practical minimum distance in distance units
-#define SAMPLE_DELAY 80           // Main loop sample delay
+#define MAX_DISTANCE_PRAC 420     // Practical distance in distance units
+#define MIN_DISTANCE 20           // Practical minimum distance in distance units
+#define BLINK_DELAY 100           // LED blink delay milliseconds
 #define SENSOR_INVERVAL_FACTOR 16 // Any loop counter multiple of this triggers temp/hum read.
-#define ITERATIONS 5              // Number of reads per averaging
+#define ITERATIONS 5             // Number of reads used in the median reading function
 
-// Note: SAMPLE_DELAY * SENSOR_INVERVAL_FACTOR = time between temp/hum checks.
+// Note: SENSOR_INVERVAL_FACTOR = a factor for time between temp/hum checks.
 // This needs to be at least 500 ms. Reported to be 2000 ms required. 
 // This time interval allows the DHT-11 sensor can stabilize.
 
-// Define Variables
-
-//int value = LOW;      // Previous value of the LED
+// Defining Variables
 int readValue = 0;    // Variable to hold the read value
 int lastValue = 0;    // Previous readValue
 int readDelta = 2;    // Read threshold difference for reporting
@@ -75,22 +73,23 @@ void loop() {
     // Serial.println( hum); // for debuging
     // Serial.println( temp); // for debuging
     counter = 0;
-    blinkLed();
+    blinkLed(DHTRDLEDPIN);
   }
  
-  // read vlaue on distance sensor
+  // read value on distance sensor
   // but return smaller of the reading or MAX_DISTANCE_PRAC
   readValue = fmin(distread(),MAX_DISTANCE_PRAC);
-  // if dist has changed more than delta
-  if (abs(readValue-lastValue) > readDelta) {
-    Serial.print(readValue);
-    Serial.print("A");
-    lastValue = readValue;
-    digitalWrite(RDLEDPIN, HIGH);
+
+  if (readValue < MAX_DISTANCE && readValue > MIN_DISTANCE) {
+    // if dist has changed more than delta
+    if (abs(readValue-lastValue) > readDelta) {
+      Serial.print(readValue);
+      Serial.print("A");
+      lastValue = readValue;
+      blinkLed(RDLEDPIN);
+    }
   }
-      
-  delay(SAMPLE_DELAY);
-  digitalWrite(RDLEDPIN, LOW);
+  
 }
 
 int distread(){
@@ -106,7 +105,7 @@ int distread(){
 }
 
 void GetTempHum(){
-   hum = dht.readHumidity();  // Get Humidity value
+   hum = dht.readHumidity();     // Get Humidity value
    temp= dht.readTemperature();  // Get Temperature value
    if (isnan(hum)) {
     hum = 40;
@@ -114,12 +113,10 @@ void GetTempHum(){
    if (isnan(temp)) {
     temp = 23;
    }
-   
 }
 
-void blinkLed(){
-  digitalWrite(DHTRDLEDPIN, HIGH);
-  delay(SAMPLE_DELAY);
-  digitalWrite(DHTRDLEDPIN, LOW);
+void blinkLed(int PinNumber){
+  digitalWrite(PinNumber, HIGH);
+  delay(BLINK_DELAY);
+  digitalWrite(PinNumber, LOW);
 }
-

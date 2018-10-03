@@ -55,14 +55,16 @@ class CalTable {
     // handle outlying sensorVal first.
     // sensorVal is larger than the largest (smallest volume)
     if (sensorVal >= data[0][1]){ //<>//
+      println("outlying sensorVal: "+ sensorVal+ " >= data[0][1]: " + data[0][1] + " returning: " + data[0][1]);
       return data[0][0];
     } 
     
     // sensorVal is smaller than the smallest (largest volume)
     if (sensorVal <= data[rowCount-1][1]) { //<>//
+      //println("outlying sensorVal: "+ sensorVal+ " <= data[rowCount-1][1]: " + data[rowCount-1][1] );
       float delta = data[rowCount-2][1]-data[rowCount-1][1];
-      float amt = (data[rowCount-1][1]-sensorVal)/delta;
-      interP = lerp(data[rowCount-2][0],data[rowCount-1][0],amt);
+      float amtbeyondfraction = (data[rowCount-1][1]-sensorVal)/delta;
+      interP = data[rowCount-1][0] + (amtbeyondfraction * (data[rowCount-1][0]-data[rowCount-2][0])) ;
       return interP;
     }
 

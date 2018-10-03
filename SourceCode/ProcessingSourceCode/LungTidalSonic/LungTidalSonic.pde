@@ -1,13 +1,11 @@
 
 /*
-/ LungTidalSonic 4/2018, original LungTidal 4/2009
+/ LungTidalSonic 10/2018, original LungTidal 4/2009
 / A program for graphing lung tidal data collected by an Arduino PIC connected to a sonic distance
 / sensor mounted to a spirometer. The Arduino places the data on the serial port for LungTidalSonic to see.
 */
 import processing.serial.*;
 import processing.pdf.*;
-
-//MovieMaker mm;  // Declare MovieMaker object
 
 Serial port;
 String dataStr;  // input string from serial port
@@ -55,20 +53,16 @@ PushButton butPrint;
 CalTable calibrationTable; // calibration text file is in the Data folder
    
 void setup(){
-  size(720,605);
-  // Create MovieMaker object with size, filename,
-  // compression codec and quality, framerate
-  // mm = new MovieMaker(this, width, height, "LungTidal.mov",
-  //                      56, MovieMaker.ANIMATION, MovieMaker.BEST);
+  size(800,600);
   myName = "Your Name Here";
   calibrationTable = new CalTable("calibration_data.tsv");  
   dataStr = "0";
   dataMin = 0;
   dataMax = 1023;
-  plotVertRange = 6;
+  plotVertRange = 7;
   float litersAtDataMax = 6.0;
-  spiroMinData = 390;
-  spiroMaxData = 82;
+  spiroMinData = 400;   // used when caltable is missing
+  spiroMaxData = 77.25; // used when caltable is missing
   litersPerDataVal = litersAtDataMax/dataMax;
   plotX1 = 120;
   plotX2 = width - 80;

@@ -1,22 +1,22 @@
 # Spirometer calibration table
-# 5/2018 modified for sonic readings
+# 10/2018 modified for sonic readings
 #
 # Separate the data with tabs
 # Use a text editor that writes raw text. 
 # <volume on dial><tab><raw analog data>
-0	389.5
-0.5	358.5
-1.0	330.75
-1.5	303.5
+0	400
+0.5	363.75
+1.0	338.75
+1.5	303.75
 2.0	276.25
-2.5	252.75
-3.0	226
-3.5	203
-4.0	178.75
-4.5	157.75
-5.0	133.5
-5.5	101.25
-6.0	82.25
+2.5	247.5
+3.0	222.25
+3.5	198.75
+4.0	171.75
+4.5	153.25
+5.0	128.5
+5.5	97.5
+6.0	77.25
 # calibration data end
 #
 # An alternate USB driver name can be placed here.

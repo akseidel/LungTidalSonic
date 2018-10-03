@@ -4,10 +4,13 @@ int myArd;
 float sonicV;
 float sonicVraw;
 float sonicVrawPrev = Float.NaN;
+// Sensor readings jumping larger than this value from the previous are ignored as erratic readings 
 float sonicVrawMaxDelta = 180.0;
 float sonicVrawDelta = Float.NaN;
-float MAX_DISTANCE_PRAC = 400;
-// Sensor readings above this value are ignored so that jitter at the 
+// Sensor readings above this MAX_DISTANCE_PRAC value are ignored as zingers
+// This value is coordinated with the maximum values the Ardunio code will send out.
+float MAX_DISTANCE_PRAC = 410;
+// Sensor readings above this zeroCutOff value are ignored so that jitter at the 
 // down position does not read as data.
 float zeroCutOff = 380;  
 
@@ -39,18 +42,19 @@ void serialEvent(Serial port) {
     sonicVraw = float(dataStr);
     
     // detect and ignore zinger values
-    if (sonicVraw < MAX_DISTANCE_PRAC){
+    if ((sonicVraw < MAX_DISTANCE_PRAC) && (sonicVraw > 5)){
           sonicVrawDelta = sonicVraw - sonicVrawPrev;
-          // println(sonicVraw + " <= now | prev => " + sonicVrawPrev );
+           println(sonicVraw + " <= now | prev => " + sonicVrawPrev );
           if ( sonicVrawDelta > sonicVrawMaxDelta){
-            // println(sonicVrawDelta + " Ingorning " + sonicVraw );
+            println(sonicVrawDelta + " Delta too large. Ingorning " + sonicVraw );
             return;
           }
           // println(sonicVrawDelta + " is current delta");
     } else {
-      // println("Spurious serial data. " + sonicVraw  );
+      println("Ingorning spurious serial data. " + sonicVraw  );
       return;
     }
+    
     sonicVrawPrev = sonicVraw;
     if (myCal != -1){  // normal condition
         sonicV = calibrationTable.getCalValue(sonicVraw);
